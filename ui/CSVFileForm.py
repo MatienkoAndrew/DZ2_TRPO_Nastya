@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Table.ui'
+# Form implementation generated from reading ui file 'CSVFileForm.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -11,20 +11,20 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
+class CSVForm(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(800, 496)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(110, 440, 93, 28))
+        self.pushButton.setGeometry(QtCore.QRect(20, 410, 201, 51))
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(270, 440, 93, 28))
+        self.pushButton_2.setGeometry(QtCore.QRect(280, 410, 221, 51))
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(420, 440, 93, 28))
+        self.pushButton_3.setGeometry(QtCore.QRect(550, 410, 201, 51))
         self.pushButton_3.setObjectName("pushButton_3")
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
         self.tableWidget.setGeometry(QtCore.QRect(10, 40, 771, 321))
@@ -67,11 +67,11 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Standart"))
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+# if __name__ == "__main__":
+#     import sys
+#     app = QtWidgets.QApplication(sys.argv)
+#     MainWindow = QtWidgets.QMainWindow()
+#     ui = Ui_MainWindow()
+#     ui.setupUi(MainWindow)
+#     MainWindow.show()
+#     sys.exit(app.exec_())
