@@ -44,6 +44,9 @@ class XLXForm(object):
         self.tableWidget.setHorizontalHeaderItem(6, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(7, item)
+        self.back = QtWidgets.QPushButton(self.centralwidget)
+        self.back.setGeometry(QtCore.QRect(660, 380, 201, 51))
+        self.back.setObjectName("back")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -73,6 +76,7 @@ class XLXForm(object):
         item.setText(_translate("MainWindow", "ID_Hand"))
         item = self.tableWidget.horizontalHeaderItem(7)
         item.setText(_translate("MainWindow", "DELETE"))
+        self.back.setText(_translate("MainWindow", "Назад"))
 
 
 if __name__ == "__main__":
