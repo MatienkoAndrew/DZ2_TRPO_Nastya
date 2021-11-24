@@ -11,25 +11,22 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class CSVForm(object):
+class CSVFileForm(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 496)
+        MainWindow.resize(809, 496)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(20, 410, 201, 51))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(280, 410, 221, 51))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(550, 410, 201, 51))
-        self.pushButton_3.setObjectName("pushButton_3")
+        self.addButton = QtWidgets.QPushButton(self.centralwidget)
+        self.addButton.setGeometry(QtCore.QRect(110, 390, 201, 51))
+        self.addButton.setObjectName("addButton")
+        self.changeButton = QtWidgets.QPushButton(self.centralwidget)
+        self.changeButton.setGeometry(QtCore.QRect(380, 390, 201, 51))
+        self.changeButton.setObjectName("changeButton")
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
         self.tableWidget.setGeometry(QtCore.QRect(10, 40, 771, 321))
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(5)
+        self.tableWidget.setColumnCount(6)
         self.tableWidget.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
@@ -41,6 +38,8 @@ class CSVForm(object):
         self.tableWidget.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(4, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(5, item)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -52,9 +51,8 @@ class CSVForm(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton.setText(_translate("MainWindow", "Добавить"))
-        self.pushButton_2.setText(_translate("MainWindow", "Удалить"))
-        self.pushButton_3.setText(_translate("MainWindow", "Изменить"))
+        self.addButton.setText(_translate("MainWindow", "Добавить"))
+        self.changeButton.setText(_translate("MainWindow", "Изменить"))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "ID"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -65,8 +63,10 @@ class CSVForm(object):
         item.setText(_translate("MainWindow", "Designation"))
         item = self.tableWidget.horizontalHeaderItem(4)
         item.setText(_translate("MainWindow", "Standart"))
+        item = self.tableWidget.horizontalHeaderItem(5)
+        item.setText(_translate("MainWindow", "DELETE"))
 
-
+#
 # if __name__ == "__main__":
 #     import sys
 #     app = QtWidgets.QApplication(sys.argv)

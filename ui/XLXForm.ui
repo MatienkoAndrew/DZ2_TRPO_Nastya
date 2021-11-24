@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>930</width>
+    <width>1263</width>
     <height>496</height>
    </rect>
   </property>
@@ -45,7 +45,7 @@
      <rect>
       <x>10</x>
       <y>40</y>
-      <width>901</width>
+      <width>1191</width>
       <height>321</height>
      </rect>
     </property>
@@ -82,6 +82,11 @@
     <column>
      <property name="text">
       <string>ID_Hand</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>DELETE</string>
      </property>
     </column>
    </widget>
