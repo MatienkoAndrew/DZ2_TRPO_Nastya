@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>886</width>
-    <height>496</height>
+    <width>985</width>
+    <height>479</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,25 +27,12 @@
      <string>Добавить</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="changeButton">
-    <property name="geometry">
-     <rect>
-      <x>330</x>
-      <y>400</y>
-      <width>201</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Изменить</string>
-    </property>
-   </widget>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>40</y>
-      <width>771</width>
+      <width>931</width>
       <height>321</height>
      </rect>
     </property>
@@ -77,6 +64,11 @@
     <column>
      <property name="text">
       <string>Delete</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Update</string>
      </property>
     </column>
    </widget>

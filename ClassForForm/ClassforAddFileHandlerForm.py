@@ -38,16 +38,16 @@ class ClassforAddFileHandlerForm(QtWidgets.QMainWindow):
         date = self.ui.dateTimeEdit.text()
         result = self.ui.resultBox.currentText()
 
-        ##-- сохранение в БД
-        conn_string = "host='localhost' dbname='mydb' user='postgres' password='MAtienko9999'"
-        with closing(psycopg2.connect(conn_string)) as conn:
-            with conn.cursor() as cursor:
-                cursor.execute(f"""INSERT INTO FileHandler (named, code, data, result)
-                                    VALUES ('{name}', {code}, '{date}', '{result}')
-                                """)
-                conn.commit()
+        from DataMappers.FileHandlerMapper import FileHandler
+        fileHandlerClass = FileHandler()
+        fileHandlerClass.named = name
+        fileHandlerClass.code = code
+        fileHandlerClass.data = date
+        fileHandlerClass.result = result
 
-        ##-- закрытие всех окон и открытие FileHandler обновленного
+        fileHandlerClass.Create()
+
+        # закрытие всех окон и открытие FileHandler обновленного
         QtWidgets.QMessageBox.about(self, "Предупреждение", "Запись сохранена в БД")
         app = QtGui.QGuiApplication.instance()
         app.closeAllWindows()

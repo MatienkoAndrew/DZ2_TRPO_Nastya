@@ -40,26 +40,25 @@ class ClassforAddXlxFileForm(QtWidgets.QMainWindow):
         designation = self.ui.designationEdit.text()
         idhand = self.ui.idHandEdit.text()
 
-        ##-- сохранение в БД
-        conn_string = "host='localhost' dbname='mydb' user='postgres' password='MAtienko9999'"
-        with closing(psycopg2.connect(conn_string)) as conn:
-            with conn.cursor() as cursor:
-                try:
-                    cursor.execute(f"""INSERT INTO xlx_file (name, quantity, type, standart, designation, idhand)
-                                        VALUES ('{name}', {quantity}, '{type}', '{standart}', '{designation}', {idhand})
-                                    """)
-                    conn.commit()
+        from DataMappers.XlxFileMapper import XlxFile
+        XlxFileClass = XlxFile()
+        XlxFileClass.name = name
+        XlxFileClass.quantity = quantity
+        XlxFileClass.type = type
+        XlxFileClass.standart = standart
+        XlxFileClass.designation = designation
+        XlxFileClass.idhand = idhand
 
-                    ##-- закрытие всех окон и открытие FileHandler обновленного
-                    QtWidgets.QMessageBox.about(self, "Предупреждение", "Запись сохранена в БД")
-                    app = QtGui.QGuiApplication.instance()
-                    app.closeAllWindows()
+        XlxFileClass.Create()
 
-                    from ClassForForm.ClassforXLXForm import ClassforXLXForm
-                    self.XlxFileForm = ClassforXLXForm()
-                    self.XlxFileForm.show()
-                except Exception:
-                    QtWidgets.QMessageBox.about(self, "Предупреждение", "Нет такого FileHandler")
+        # закрытие всех окон и открытие FileHandler обновленного
+        QtWidgets.QMessageBox.about(self, "Предупреждение", "Запись сохранена в БД")
+        app = QtGui.QGuiApplication.instance()
+        app.closeAllWindows()
+
+        from ClassForForm.ClassforXLXForm import ClassforXLXForm
+        self.XlxFileForm = ClassforXLXForm()
+        self.XlxFileForm.show()
 
         pass
     pass

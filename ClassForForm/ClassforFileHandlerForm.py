@@ -18,7 +18,48 @@ from ClassForForm.ClassforAddXlxFileForm import *
 from ClassForForm.csvClassforForm import *
 from ClassForForm.ClassforAddCSVFileForm import *
 from ClassForForm.ClassforAddFileHandlerForm import *
+from ui.UpdateFileHandlerForm import UpdateFileHandlerForm
 
+
+class ClassforUpdateFileHandlerForm(QtWidgets.QMainWindow):
+    def __init__(self, id: int, parent=None):
+        super().__init__(parent)
+        self.ui = UpdateFileHandlerForm()
+        self.ui.setupUi(self)
+        self.id=id
+        self.initUI()
+
+    def initUI(self):
+        self.setWindowTitle("UpdateFileHandlerForm")
+
+        from DataMappers.FileHandlerMapper import FileHandler
+        self.FileHandlerClass = FileHandler()
+        self.FileHandlerClass = self.FileHandlerClass.GetById(self.id)
+        self.ui.nameDEdit.setText(str(self.FileHandlerClass.named))
+        self.ui.codeEdit.setText(str(self.FileHandlerClass.code))
+        self.ui.dateTimeEdit.setDateTime(self.FileHandlerClass.data)
+        self.ui.resultBox.setItemText(2, str(self.FileHandlerClass.result))
+
+        self.ui.saveButton.clicked.connect(self.save)
+        pass
+
+    def save(self):
+        self.FileHandlerClass.named = self.ui.nameDEdit.text()
+        self.FileHandlerClass.code = self.ui.codeEdit.text()
+        self.FileHandlerClass.data = self.ui.dateTimeEdit.text()
+        self.FileHandlerClass.result = self.ui.resultBox.currentText()
+
+        self.FileHandlerClass.Update(self.id)
+
+        # закрытие всех окон и открытие FileHandler обновленного
+        app = QtGui.QGuiApplication.instance()
+        app.closeAllWindows()
+
+        self.FileHandler = ClassforFileHandlerForm()
+        self.FileHandler.show()
+
+
+# Класс для взаимодействия с интерфейсом (окном FileHandler)
 class ClassforFileHandlerForm(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -30,57 +71,51 @@ class ClassforFileHandlerForm(QtWidgets.QMainWindow):
         self.setWindowTitle("FileHandlerForm")
         self.connect()
         self.ui.addButton.clicked.connect(self.openAddForm)
-        self.ui.changeButton.clicked.connect(self.change)
         self.ui.back.clicked.connect(self.back)
         pass
 
     def connect(self):
-        conn_string = "host='localhost' dbname='mydb' user='postgres' password='MAtienko9999'"
-        with closing(psycopg2.connect(conn_string)) as conn:
-            with conn.cursor() as cursor:
-                cursor.execute("SELECT * FROM filehandler")
-                rows = cursor.fetchall()
+        from DataMappers.FileHandlerMapper import FileHandler
+        FileHandlerClass = FileHandler()
+        rows = FileHandlerClass.GetAll()
 
-                self.ui.tableWidget.setRowCount(len(rows))
-                tablerow = 0
-                for row in rows:
-                    print(row)
-                    self.ui.tableWidget.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(str(row[0])))
-                    self.ui.tableWidget.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(str(row[1])))
-                    self.ui.tableWidget.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(str(row[2])))
-                    self.ui.tableWidget.setItem(tablerow, 3, QtWidgets.QTableWidgetItem(str(row[3])))
-                    self.ui.tableWidget.setItem(tablerow, 4, QtWidgets.QTableWidgetItem(str(row[4])))
+        self.ui.tableWidget.setRowCount(len(rows))
+        tablerow = 0
+        for row in rows:
+            print(row)
+            self.ui.tableWidget.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(str(row[0])))
+            self.ui.tableWidget.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(str(row[1])))
+            self.ui.tableWidget.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(str(row[2])))
+            self.ui.tableWidget.setItem(tablerow, 3, QtWidgets.QTableWidgetItem(str(row[3])))
+            self.ui.tableWidget.setItem(tablerow, 4, QtWidgets.QTableWidgetItem(str(row[4])))
 
-                    self.btn = QtWidgets.QPushButton(self.ui.centralwidget)
-                    self.btn.setObjectName(f'{row[0]}')
-                    self.btn.setText("Удалить")
-                    self.ui.tableWidget.setCellWidget(tablerow, 5, self.btn)
-                    self.btn.clicked.connect(self.del_row)
-                    tablerow += 1
-                    pass
-                pass
+            # кнопка удалить
+            self.btn = QtWidgets.QPushButton(self.ui.centralwidget)
+            self.btn.setObjectName(f'{row[0]}')
+            self.btn.setText("Удалить")
+            self.ui.tableWidget.setCellWidget(tablerow, 5, self.btn)
+            self.btn.clicked.connect(self.del_row)
+
+            # кнопка изменить
+            self.update_btn = QtWidgets.QPushButton(self.ui.centralwidget)
+            self.update_btn.setObjectName(f'{row[0]}')
+            self.update_btn.setText("Изменить")
+            self.ui.tableWidget.setCellWidget(tablerow, 6, self.update_btn)
+            self.update_btn.clicked.connect(self.update_row)
+            tablerow += 1
             pass
         pass
 
     def del_row(self):
         clicked_btn = self.sender()
-        click_btn_obj_name = clicked_btn.objectName()
-        print(f"DELETE {click_btn_obj_name} button")
+        id = clicked_btn.objectName()
+        # print(f"DELETE {click_btn_obj_name} button")
 
-        conn_string = "host='localhost' dbname='mydb' user='postgres' password='MAtienko9999'"
-        with closing(psycopg2.connect(conn_string)) as conn:
-            with conn.cursor() as cursor:
-                try:
-                    cursor.execute(f"DELETE FROM xlx_file WHERE idhand='{click_btn_obj_name}'")
-                    cursor.execute(f"DELETE FROM FileHandler WHERE ID='{click_btn_obj_name}'")
-                    cursor.execute(f"DELETE FROM csv_to_fileh WHERE handid='{click_btn_obj_name}'")
-                except Exception as e:
-                    cursor.execute(f"DELETE FROM FileHandler WHERE ID='{click_btn_obj_name}'")
-                conn.commit()
-                pass
-            pass
+        from DataMappers.FileHandlerMapper import FileHandler
+        FileHandlerClass = FileHandler()
+        FileHandlerClass.Delete(id)
 
-        ##-- закрытие всех окон и открытие FileHandler обновленного
+        # закрытие всех окон и открытие FileHandler обновленного
         app = QtGui.QGuiApplication.instance()
         app.closeAllWindows()
 
@@ -92,32 +127,20 @@ class ClassforFileHandlerForm(QtWidgets.QMainWindow):
     def openAddForm(self):
         self.AddForm = ClassforAddFileHandlerForm()
         self.AddForm.show()
+        pass
 
-    def change(self):
+    def update_row(self):
+        clicked_btn = self.sender()
+        id = int(clicked_btn.objectName())
+        # print(f"UPDATE {id} button")
 
-        conn_string = "host='localhost' dbname='mydb' user='postgres' password='MAtienko9999'"
-        with closing(psycopg2.connect(conn_string)) as conn:
-            with conn.cursor() as cursor:
-                for row in range(self.ui.tableWidget.rowCount()):
-                    cursor.execute(f"""
-                    UPDATE FileHandler 
-                    SET named='{self.ui.tableWidget.item(row, 1).text()}',
-                        Code={self.ui.tableWidget.item(row, 2).text()},
-                        Data='{self.ui.tableWidget.item(row, 3).text()}',
-                        result={self.ui.tableWidget.item(row, 4).text()}
-                    WHERE ID={self.ui.tableWidget.item(row, 0).text()}
-                    """)
-                conn.commit()
-        # ##-- закрытие всех окон и открытие FileHandler обновленного
-        # app = QtGui.QGuiApplication.instance()
-        # app.closeAllWindows()
-        # self.FileHandler = ClassforFileHandlerForm()
-        # self.FileHandler.show()
+        self.UpdateForm = ClassforUpdateFileHandlerForm(id)
+        self.UpdateForm.show()
         pass
 
     def back(self):
         self.MainForm = MainForm()
         self.MainForm.show()
         self.close()
-
+        pass
     pass

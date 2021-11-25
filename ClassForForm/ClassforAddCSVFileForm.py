@@ -38,14 +38,14 @@ class ClassforAddCSVFileForm(QtWidgets.QMainWindow):
         designation = self.ui.designationEdit.text()
         standart = self.ui.standartBox.currentText()
 
-        ##-- сохранение в БД
-        conn_string = "host='localhost' dbname='mydb' user='postgres' password='MAtienko9999'"
-        with closing(psycopg2.connect(conn_string)) as conn:
-            with conn.cursor() as cursor:
-                cursor.execute(f"""INSERT INTO csv_file (name, quantity, designation, standart)
-                                    VALUES ('{name}', {quantity}, '{designation}', '{standart}')
-                                """)
-                conn.commit()
+        from DataMappers.CsvFileMapper import CsvFile
+        CsvFileClass = CsvFile()
+        CsvFileClass.name = name
+        CsvFileClass.quantity = quantity
+        CsvFileClass.designation = designation
+        CsvFileClass.standart = standart
+
+        CsvFileClass.Create()
 
         ##-- закрытие всех окон и открытие FileHandler обновленного
         QtWidgets.QMessageBox.about(self, "Предупреждение", "Запись сохранена в БД")

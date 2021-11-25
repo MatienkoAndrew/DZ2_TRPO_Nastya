@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>809</width>
+    <width>993</width>
     <height>496</height>
    </rect>
   </property>
@@ -27,25 +27,12 @@
      <string>Добавить</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="changeButton">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>390</y>
-      <width>201</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Изменить</string>
-    </property>
-   </widget>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>40</y>
-      <width>771</width>
+      <width>901</width>
       <height>321</height>
      </rect>
     </property>
@@ -77,6 +64,11 @@
     <column>
      <property name="text">
       <string>DELETE</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>UPDATE</string>
      </property>
     </column>
    </widget>

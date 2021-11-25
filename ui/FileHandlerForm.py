@@ -14,19 +14,16 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class FileHandlerForm(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(886, 496)
+        MainWindow.resize(985, 479)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.addButton = QtWidgets.QPushButton(self.centralwidget)
         self.addButton.setGeometry(QtCore.QRect(60, 400, 201, 51))
         self.addButton.setObjectName("addButton")
-        self.changeButton = QtWidgets.QPushButton(self.centralwidget)
-        self.changeButton.setGeometry(QtCore.QRect(330, 400, 201, 51))
-        self.changeButton.setObjectName("changeButton")
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(10, 40, 771, 321))
+        self.tableWidget.setGeometry(QtCore.QRect(10, 40, 931, 321))
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(6)
+        self.tableWidget.setColumnCount(7)
         self.tableWidget.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
@@ -40,6 +37,8 @@ class FileHandlerForm(object):
         self.tableWidget.setHorizontalHeaderItem(4, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(5, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(6, item)
         self.back = QtWidgets.QPushButton(self.centralwidget)
         self.back.setGeometry(QtCore.QRect(600, 400, 201, 51))
         self.back.setObjectName("back")
@@ -55,7 +54,6 @@ class FileHandlerForm(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.addButton.setText(_translate("MainWindow", "Добавить"))
-        self.changeButton.setText(_translate("MainWindow", "Изменить"))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "ID"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -68,6 +66,8 @@ class FileHandlerForm(object):
         item.setText(_translate("MainWindow", "Result"))
         item = self.tableWidget.horizontalHeaderItem(5)
         item.setText(_translate("MainWindow", "Delete"))
+        item = self.tableWidget.horizontalHeaderItem(6)
+        item.setText(_translate("MainWindow", "Update"))
         self.back.setText(_translate("MainWindow", "Назад"))
 
 

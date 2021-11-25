@@ -27,19 +27,6 @@
      <string>Добавить</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="changeButton">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>380</y>
-      <width>201</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Изменить</string>
-    </property>
-   </widget>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
@@ -87,6 +74,11 @@
     <column>
      <property name="text">
       <string>DELETE</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>UPDATE</string>
      </property>
     </column>
    </widget>
